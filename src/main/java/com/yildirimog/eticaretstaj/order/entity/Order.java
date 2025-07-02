@@ -1,6 +1,7 @@
 package com.yildirimog.eticaretstaj.order.entity;
 
 import com.yildirimog.eticaretstaj.order.enums.OrderStatus;
+import com.yildirimog.eticaretstaj.user.entity.User;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -19,9 +20,11 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
     private BigDecimal totalAmount;
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    private User user;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    private LocalDateTime deliveryDate;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;

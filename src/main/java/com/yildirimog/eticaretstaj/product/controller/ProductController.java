@@ -2,16 +2,15 @@ package com.yildirimog.eticaretstaj.product.controller;
 
 import com.yildirimog.eticaretstaj.product.dto.ProductDto;
 import com.yildirimog.eticaretstaj.product.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/products")
+
 public class ProductController {
     private final ProductService productService;
     public ProductController(ProductService productService) {
@@ -23,15 +22,25 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDto> getProductById(Long id){
+    public ResponseEntity<ProductDto> getProductById(@PathVariable Long id){
         ProductDto product = productService.getProductById(id);
         return ResponseEntity.ok(product);
     }
     @PostMapping
-    public ResponseEntity<Void> addProduct(ProductDto productDto){
+    public ResponseEntity<Void> addProduct(@RequestBody @Valid ProductDto productDto ){
         productService.addProduct(productDto);
         return ResponseEntity
                 .status(201) // Created
                 .build();
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+        productService.deleteProduct(id);
+        return ResponseEntity.noContent().build();
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateProduct(@PathVariable Long id, @RequestBody @Valid ProductDto productDto) {
+        productService.updateProduct(id, productDto);
+        return ResponseEntity.noContent().build();
     }
 }
