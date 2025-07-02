@@ -3,6 +3,11 @@ package com.yildirimog.eticaretstaj.user.entity;
 import com.yildirimog.eticaretstaj.user.enums.Roles;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -11,7 +16,7 @@ import lombok.*;
 @Builder
 @Getter
 @Setter
-public class User{
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,12 +29,11 @@ public class User{
 
     @Enumerated(EnumType.STRING)
     private Roles role;
-    /*
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(
-                () -> "ROLE_" + this.role.name()
-        );
+        return List.of(() -> role.name());
     }
 
     @Override
@@ -61,6 +65,5 @@ public class User{
     public boolean isEnabled() {
         return true;
     }
-    @Override
-     */
+
 }

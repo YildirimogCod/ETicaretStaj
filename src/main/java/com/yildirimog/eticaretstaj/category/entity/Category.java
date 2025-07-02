@@ -4,6 +4,7 @@ import com.yildirimog.eticaretstaj.product.entity.Product;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,6 +19,6 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @OneToMany(mappedBy = "category")
-    private List<Product> product;
+    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
+    private List<Product> product = new ArrayList<>();
 }
