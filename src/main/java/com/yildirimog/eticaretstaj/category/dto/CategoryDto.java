@@ -9,13 +9,14 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
-public class CategoryDto {
-    private Long id;
+public record CategoryDto(
     @NotBlank(message = "Category name cannot be blank")
     @Size(min = 2, max = 100, message = "Category name must be between 2 and 100 characters")
-    private String name;
-
+    String name
+) {
 }
+//    @NotBlank(message = "Category name cannot be blank")
+//    @Size(min = 2, max = 100, message = "Category name must be between 2 and 100 characters")
+
+

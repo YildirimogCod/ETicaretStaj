@@ -9,23 +9,22 @@ import lombok.*;
 
 import java.math.BigDecimal;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
-public class ProductDto {
-    private Long id;
+public record ProductDto (
+    @Id
+    Long id,
     @NotBlank(message = "Product name cannot be blank")
     @Size(min = 2, max = 100, message = "Product name must be between 2 and 100 characters")
-    private String name;
+    String name,
     @NotBlank(message = "Description cannot be blank")
     @Size(min = 10, max = 500, message = "Description must be between 10 and 500 characters")
-    private String description;
+    String description,
     @DecimalMin(value = "0.0", message = "Price must be a positive number")
-    private BigDecimal price;
+    BigDecimal price,
     @Min(value = 0, message = "Stock quantity must be zero or greater")
-    private int stockQuantity;
+    int stockQuantity,
     @NotBlank(message = "Category ID cannot be blank")
-    private Long categoryId;
+    Long categoryId
+) {
 }
+

@@ -2,6 +2,7 @@ package com.yildirimog.eticaretstaj.category.controller;
 import com.yildirimog.eticaretstaj.category.dto.CategoryDto;
 import com.yildirimog.eticaretstaj.category.service.CategoryService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,11 +17,11 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
     @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED)
     public ResponseEntity<Void> addCategory(@RequestBody @Valid CategoryDto categoryDto){
         categoryService.addCategory(categoryDto);
-        return ResponseEntity
-                .status(201) // Created
-                .build();
+        return ResponseEntity.ok().build();
+
     }
     @GetMapping
     public ResponseEntity<List<CategoryDto>> getCategories() {

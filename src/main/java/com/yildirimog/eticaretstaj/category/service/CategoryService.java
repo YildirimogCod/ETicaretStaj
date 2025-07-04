@@ -34,7 +34,6 @@ public class CategoryService {
        Optional<Category> category = categoryRepository.findById(id);
         if (category.isPresent()) {
             return CategoryDto.builder()
-                    .id(category.get().getId())
                     .name(category.get().getName())
                     .build();
         } else {

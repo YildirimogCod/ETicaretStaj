@@ -1,4 +1,8 @@
 package com.yildirimog.eticaretstaj.auth.dto;
 
-public class RegisterRequest {
+public record RegisterRequest (
+        String username,
+        String email,
+        String password
+){
 }

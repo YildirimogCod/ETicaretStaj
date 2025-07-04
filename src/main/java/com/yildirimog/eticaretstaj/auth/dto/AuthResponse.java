@@ -1,4 +1,11 @@
 package com.yildirimog.eticaretstaj.auth.dto;
 
-public class AuthResponse {
+import jakarta.validation.constraints.NotBlank;
+
+public record AuthResponse(
+        String token,
+        String username,
+        String email
+) {
+
 }

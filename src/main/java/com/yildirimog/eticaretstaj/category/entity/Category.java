@@ -5,7 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "categories")
@@ -19,6 +20,6 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
-    private List<Product> product = new ArrayList<>();
+    @ManyToMany(mappedBy = "category", cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
+    private Set<Product> product = new HashSet<>();
 }

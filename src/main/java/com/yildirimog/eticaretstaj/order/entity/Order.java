@@ -26,6 +26,8 @@ public class Order {
 
     private LocalDateTime deliveryDate;
 
+
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;
 }

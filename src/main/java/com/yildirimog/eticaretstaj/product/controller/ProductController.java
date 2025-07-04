@@ -1,5 +1,6 @@
 package com.yildirimog.eticaretstaj.product.controller;
 
+import com.yildirimog.eticaretstaj.common.response.ApiResponse;
 import com.yildirimog.eticaretstaj.product.dto.ProductDto;
 import com.yildirimog.eticaretstaj.product.service.ProductService;
 import jakarta.validation.Valid;
@@ -17,21 +18,21 @@ public class ProductController {
         this.productService = productService;
     }
     @GetMapping
-    public ResponseEntity<List<ProductDto>> getProducts() {
+    public ResponseEntity<ApiResponse<List<ProductDto>>> getProducts() {
         List<ProductDto> products = productService.getProducts();
-        return ResponseEntity.ok(products);
+        return ResponseEntity.ok(ApiResponse.succes("Products retrieved successfully", products));
     }
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDto> getProductById(@PathVariable Long id){
+    public ResponseEntity<ApiResponse<ProductDto>> getProductById(@PathVariable Long id){
         ProductDto product = productService.getProductById(id);
-        return ResponseEntity.ok(product);
+        return ResponseEntity.ok(ApiResponse.succes("Product retrieved successfully", product));
     }
     @PostMapping
-    public ResponseEntity<Void> addProduct(@RequestBody @Valid ProductDto productDto ){
-        productService.addProduct(productDto);
+    public ResponseEntity<ApiResponse<ProductDto>> addProduct(@RequestBody @Valid ProductDto productDto ){
+        ProductDto created = productService.addProduct(productDto);
         return ResponseEntity
                 .status(201) // Created
-                .build();
+                .body(ApiResponse.succes("Product added successfully",created));
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
